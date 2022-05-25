@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import './app/layout/style.css';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
+import { store, StoreContext } from './app/restores/store';
 
 ReactDOM.render(
-  <App />,
+  <StoreContext.Provider value={store}>
+    <App />
+  </StoreContext.Provider>
+  ,
   document.getElementById('root')
 );
 
