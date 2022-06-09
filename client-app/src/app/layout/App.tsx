@@ -5,7 +5,7 @@ import ActivityDashboard from '../../features/activities/dashboard/ActivityDashb
 import { observer } from 'mobx-react-lite';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
-import ActivityForm from '../../features/activities/dashboard/form/ActivityForm';
+import ActivityForm from '../../features/activities/form/ActivityForm';
 import ActivityDetails from '../../features/details/ActivityDetails';
 import TestErrors from '../../features/errors/TestError';
 import { ToastContainer } from 'react-toastify';
