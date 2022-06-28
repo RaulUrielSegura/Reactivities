@@ -31,9 +31,8 @@ namespace Application.Activities
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var activity = await _context.Activities
-                    .Include(x => x.Attendees)
-                    .ThenInclude(x => x.AppUser)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id);
+                   .Include(a => a.Attendees).ThenInclude(u => u.AppUser)
+                    .SingleOrDefaultAsync(x => x.Id == request.Id);
 
                 if (activity == null) return null;
 
@@ -60,13 +59,13 @@ namespace Application.Activities
                         Activity = activity,
                         IsHost = false
                     };
+                    activity.Attendees.Add(attendance);
                 }
 
-                activity.Attendees.Add(attendance);
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Problem updateing attendance");
+                return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Problem updating attendance");
 
             }
         }

@@ -10,7 +10,7 @@ namespace Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ActivityAttendee",
+                name: "ActivityAttendees",
                 columns: table => new
                 {
                     AppUserId = table.Column<string>(type: "TEXT", nullable: false),
@@ -19,7 +19,7 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityAttendee", x => new { x.AppUserId, x.ActivityId });
+                    table.PrimaryKey("PK_ActivityAttendees", x => new { x.AppUserId, x.ActivityId });
                     table.ForeignKey(
                         name: "FK_ActivityAttendee_Activities_ActivityId",
                         column: x => x.ActivityId,
@@ -27,7 +27,7 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivityAttendee_AspNetUsers_AppUserId",
+                        name: "FK_ActivityAttendees_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -35,15 +35,15 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityAttendee_ActivityId",
-                table: "ActivityAttendee",
+                name: "IX_ActivityAttendees_ActivityId",
+                table: "ActivityAttendees",
                 column: "ActivityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ActivityAttendee");
+                name: "ActivityAttendees");
         }
     }
 }
