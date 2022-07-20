@@ -174,18 +174,39 @@ export default class ActivityStore {
     }
   };
 
-  cancelActivityToggle = async ()=>{
+  cancelActivityToggle = async () => {
     this.loading = true;
     try {
       await agent.Activities.attend(this.selectedActivity!.id);
       runInAction(() => {
-        this.selectedActivity!.isCancelled = !this.selectedActivity?.isCancelled;
-        this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
-      })
+        this.selectedActivity!.isCancelled =
+          !this.selectedActivity?.isCancelled;
+        this.activityRegistry.set(
+          this.selectedActivity!.id,
+          this.selectedActivity!
+        );
+      });
     } catch (error) {
-      console.log(error);      
-    }finally{
-      runInAction(() => this.loading = false);
+      console.log(error);
+    } finally {
+      runInAction(() => (this.loading = false));
     }
-  }
+  };
+
+  updateAttendeeFollowing = (username: string) => {
+    this.activityRegistry.forEach((activity) => {
+      activity.attendees.forEach((attendee) => {
+        if (attendee.username === username) {
+          attendee.following
+            ? attendee.followersCount--
+            : attendee.followersCount++;
+          attendee.following = !attendee.following;
+        }
+      });
+    });
+  };
+
+  clearSelectedActivity = () => {
+    this.selectedActivity = undefined;
+  };
 }

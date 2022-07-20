@@ -8,6 +8,8 @@ export interface Profile{
 }
 
 export class Profile implements Profile{
+    following: any;
+    followersCount: any;
     constructor(user:User) {
         this.username = user.username;
         this.displayName = user.displayName;
